@@ -5,4 +5,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        run: echo "ok"
+      - run: echo "ok"
+      - name: package
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+      - name: version
+        run: java -version
+      - name: package
+        run: mvn package -DskipTest=true
+      - name: Publish package
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEPLOYTOKEN }}
+      - run: echo ${{ secrets.DEPLOYTOKEN }}
