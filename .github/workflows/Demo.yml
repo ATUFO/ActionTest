@@ -19,7 +19,7 @@ jobs:
       - name: package
         run: mvn package -DskipTest=true
       - name: Publish package
-        run: mvn --batch-mode deploy
+        run: mvn --batch-mode deploy -X
         env:
           GITHUB_TOKEN: ${{ secrets.DEPLOYTOKEN }}
       - run: echo ${{ secrets.DEPLOYTOKEN }}
